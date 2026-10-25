@@ -1,5 +1,5 @@
 import Image from "next/image";
-import {Fragment} from "react";
+import {Fragment, Suspense} from "react";
 import ContentOverlay from "@/components/ContentOverlay";
 import {Sparkles} from "lucide-react"
 import HeroActions from "@/components/HeroActions";
@@ -27,7 +27,9 @@ export default function Home() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         </div>
       </ContentOverlay>
-      <EventsSection />
+      <Suspense fallback={<p>Loading Events.</p>}>
+        <EventsSection />
+      </Suspense>
       <UploadShowcaseSection />
       <FeaturesSection />
       <ReliabilitySection />

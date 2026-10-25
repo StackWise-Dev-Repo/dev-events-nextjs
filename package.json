@@ -11,7 +11,9 @@
   "dependencies": {
     "framer-motion": "^14.5.0",
     "lucide-react": "^1.60.0",
+    "mongoose": "^9.11.4",
     "next": "16.4.2",
+    "posthog-js": "^1.438.21",
     "react": "19.3.0",
     "react-dom": "19.3.0",
     "tailwindcss-animate": "^1.0.7"

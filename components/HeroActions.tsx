@@ -2,9 +2,13 @@
 
 import Link from "next/link";
 import {CalendarPlus, ArrowDown} from "lucide-react";
+import posthog from "posthog-js";
 
 export default function HeroActions() {
     const handleHostEventClick = () => {
+        posthog.capture("event_hosting_started");
+        posthog.logger.info("event hosting flow initiated");
+
         // Action handler logic (modal toggle, scroll to upload/event form, etc.)
         const eventSection = document.getElementById("create-event");
         if (eventSection) {

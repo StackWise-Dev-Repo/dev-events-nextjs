@@ -1,7 +1,10 @@
+"use client";
+
 import Card from "@/components/Card";
 import { Calendar, MapPin, Users, ArrowRight, Tag } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import posthog from "posthog-js";
 
 interface EventPropTypes {
     title: string
@@ -103,6 +106,12 @@ export default function EventsSection() {
 
                             <Link
                                 href="#register"
+                                onClick={() => {
+                                    const event_type = event.tag.toLowerCase();
+
+                                    posthog.capture("event_registration_started", { event_type });
+                                    posthog.logger.info("event registration initiated", { event_type });
+                                }}
                                 className="w-full py-3.5 px-7 rounded-lg bg-[var(--bg-surface-hover)] text-[var(--text-heading)] hover:bg-[var(--school-bus-yellow)] hover:text-[var(--ink-black)] font-semibold text-center transition-all duration-200 flex items-center justify-center gap-2 group"
                             >
                                 <span>Register for Event</span>

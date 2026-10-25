@@ -25,15 +25,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="en"
       data-theme="dark"
+      data-scroll-behavior="smooth"
       className={`${spaceGrotesk.variable} ${jetBrainsMono.variable} h-full antialiased`}
     >
       <body className="min-h-screen">
         <ThemeSwitcher />
-
         <Navbar />
         {children}
         <Footer />
-
       </body>
     </html>
   );

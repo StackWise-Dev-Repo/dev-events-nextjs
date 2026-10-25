@@ -3,14 +3,17 @@
 import React, { useState } from 'react'
 import Card from "@/components/Card";
 import { UploadCloud, CheckCircle } from "lucide-react";
+import posthog from "posthog-js";
 
 export default function FileUploader() {
 
     const [dragOver, setDragOver] = useState(false);
     const [uploadedFile, setUploadedFile] = useState<string | null>(null);
 
-    const handleSimulatedUpload = (fileName: string) => {
+    const handleSimulatedUpload = (fileName: string, upload_method: "browse" | "drop") => {
         setUploadedFile(fileName);
+        posthog.capture("file_upload_simulated", { upload_method });
+        posthog.logger.info("simulated event asset upload completed", { upload_method });
     };
 
     return (
@@ -32,7 +35,7 @@ export default function FileUploader() {
                 <div
                     onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
                     onDragLeave={() => setDragOver(false)}
-                    onDrop={(e) => { e.preventDefault(); setDragOver(false); handleSimulatedUpload("event-banner-2026.png"); }}
+                    onDrop={(e) => { e.preventDefault(); setDragOver(false); handleSimulatedUpload("event-banner-2026.png", "drop"); }}
                     className={`border-2 border-dashed rounded-xl p-8 text-center transition-all duration-300 flex flex-col items-center justify-center ${
                         dragOver
                             ? "border-[var(--school-bus-yellow)] bg-[var(--school-bus-yellow)]/5"
@@ -69,7 +72,7 @@ export default function FileUploader() {
                                 Supports PNG, JPG, WEBP, or PDF up to 25MB. Instant compression and global CDN distribution.
                             </p>
                             <button
-                                onClick={() => handleSimulatedUpload("dev-summit-hero.webp")}
+                                onClick={() => handleSimulatedUpload("dev-summit-hero.webp", "browse")}
                                 className="btn-primary py-2.5 px-6 text-sm"
                             >
                                 Browse Files
