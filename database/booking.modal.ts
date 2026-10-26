@@ -11,6 +11,7 @@ const bookingSchema: Schema<IBooking> = new Schema(
     userEmail: {
       type: String,
       required: [true, 'User email is required'],
+      ref: 'RegisterUser',
       lowercase: true,
       trim: true,
     },

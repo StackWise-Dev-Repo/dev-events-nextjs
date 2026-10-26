@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Code2, ArrowRight, Calendar, Layers, ShieldAlert, FolderUp } from "lucide-react";
 import MobileNavBar from "@/components/MobileNavBar";
 import StateButton from "@/components/StateButton";
+import UserAuthButton from "./UserAuthButton";
 
 export default function Navbar() {
 
@@ -48,7 +49,8 @@ export default function Navbar() {
                         </nav>
 
                         {/* DESKTOP CTA BUTTON */}
-                        <div className="hidden md:flex items-center gap-3">
+                        <div className="hidden md:flex items-center gap-3 relative">
+                            <UserAuthButton />
                             <Link href="#create-event" className="btn-primary py-2.5 px-5 text-body-large">
                                 <span>Create Event</span>
                                 <ArrowRight className="w-5 h-5 stroke-[2.5]" />
