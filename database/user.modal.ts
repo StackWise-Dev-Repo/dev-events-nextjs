@@ -12,8 +12,8 @@ const registerUserSchema: Schema<IRegisterUser> = new Schema(
     email: {
       type: String,
       required: [true, 'User email is required'],
-      unique: true,
       lowercase: true,
+      unique: true,
       trim: true,
       match: [/^\S+@\S+\.\S+$/, 'Please enter a valid email address'],
     },
@@ -50,6 +50,9 @@ registerUserSchema.static('findByEmail', function (email: string) {
   return this.findOne({ email: email.toLowerCase().trim() });
 });
 
-const RegisterUser = mongoose.model<IRegisterUser, IRegisterUserModel>('RegisterUser', registerUserSchema);
+const RegisterUser = mongoose.models.RegisterUser || mongoose.model<IRegisterUser, IRegisterUserModel>(
+    "RegisterUser",
+    registerUserSchema,
+  );
 
 export default RegisterUser;
