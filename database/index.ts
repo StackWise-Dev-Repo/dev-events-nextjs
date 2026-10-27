@@ -34,6 +34,8 @@ if (!cached) {
  * In production, each instance gets its own connection.
  */
 async function connectDB(): Promise<typeof mongoose> {
+
+  console.log("____ dropping here ______")
   if (cached!.conn) {
     return cached!.conn;
   }

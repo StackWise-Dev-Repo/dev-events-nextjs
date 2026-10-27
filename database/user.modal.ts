@@ -43,7 +43,7 @@ registerUserSchema.pre<IRegisterUser>('save', function () {
 });
 
 // Indexes for better query performance
-registerUserSchema.index({ email: 1 });
+// registerUserSchema.index({ email: 1 });
 
 // Static method: Find user by email
 registerUserSchema.static('findByEmail', function (email: string) {

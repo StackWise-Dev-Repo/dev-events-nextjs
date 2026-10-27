@@ -1,6 +1,7 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import connectDB from '@/database';
 import Event from '@/database/event.modal';
+
 
 export async function GET() {
   try {
@@ -16,4 +17,38 @@ export async function GET() {
       { status: 500 }
     );
   }
-}
+};
+
+// export async function POST(request: Request) {
+//   try {
+//     const body = await request.json();
+//     const { title, description, src, type, venue, date, tags } = body;
+
+//     console.log("_________ reach to server __________")
+
+//     await connectDB();
+
+//     const response = await Event.create({
+//       title,
+//       description,
+//       src,
+//       type,
+//       venue,
+//       date: new Date(date),
+//       tags,
+//     });
+
+//     console.log("server response", response)
+
+//     return NextResponse.json({
+//       success: true,
+//       message: "Event created successfully."
+//     }, {status: 201});
+
+//   } catch(error: any) {
+//     return NextResponse.json({
+//       success: false,
+//       message: error.message
+//     }, {status: 400})
+//   }
+// }

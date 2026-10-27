@@ -65,6 +65,6 @@ bookingSchema.static('isBooked', function (eventId: mongoose.Types.ObjectId | st
   return count.then((c: number) => c > 0);
 });
 
-const Booking = mongoose.model<IBooking, IBookingModel>('Booking', bookingSchema);
+const Booking = mongoose.models.Booking || mongoose.model<IBooking, IBookingModel>('Booking', bookingSchema);
 
 export default Booking;

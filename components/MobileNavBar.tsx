@@ -67,8 +67,7 @@ export default function MobileNavBar() {
                 {/* Drawer Bottom CTA */}
                 <div className="pt-6 border-t border-(--border-color) flex flex-col gap-3">
                     <Link
-                        href="#create-event"
-                        onClick={() => setIsOpen(false)}
+                        href="/events/create"
                         className="btn-primary w-full justify-center py-3 text-body-large"
                     >
                         <span>Create Event</span>

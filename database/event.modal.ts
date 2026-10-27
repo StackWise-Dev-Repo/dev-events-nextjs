@@ -90,7 +90,7 @@ const eventSchema: Schema<IEvent> = new Schema(
 );
 
 // Pre-save hook: auto-generate slug from title if not provided
-eventSchema.pre<IEvent>('save', async function () {
+eventSchema.pre<IEvent>('validate', async function () {
   const event = this;
 
   // Only generate slug if it's a new document or slug is explicitly modified
@@ -113,7 +113,6 @@ eventSchema.pre<IEvent>('save', async function () {
 });
 
 // Indexes for better query performance
-eventSchema.index({ slug: 1 });
 eventSchema.index({ date: -1 });
 eventSchema.index({ tags: 1 });
 eventSchema.index({ type: 1 });
@@ -135,6 +134,6 @@ eventSchema.static('findByTags', function (tags: string[]) {
   return this.find({ tags: { $in: tags } });
 });
 
-const Event = mongoose.model<IEvent, IEventModel>('Event', eventSchema);
+const Event = mongoose.models.Event || mongoose.model<IEvent, IEventModel>('Event', eventSchema);
 
 export default Event;
