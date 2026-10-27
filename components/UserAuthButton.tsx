@@ -7,17 +7,13 @@ import {
 } from "@/lib/sesson.cookies";
 import { UserCircle, Loader2, ArrowRight } from "lucide-react";
 import { validateCurrentUser } from "@/app/actions/user.subscribe";
+import { useUserStore } from "@/store/useUserStore";
 
 export default function UserAuthButton() {
-  const [userSession, setUserSession] = useState<{
-    session: boolean;
-    name: string;
-    email: string;
-  }>({ session: false, name: "", email: "" });
-  const [formTrigger, setFormTrigger] = useState<boolean>(false);
 
-  // Form states
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const {userSession, setUserSession, isLoading, setIsLoading} = useUserStore();
+
+  const [formTrigger, setFormTrigger] = useState<boolean>(false);
   const [responseMessage, setResponseMessage] = useState<{
     success: boolean;
     message: string;
@@ -26,11 +22,17 @@ export default function UserAuthButton() {
   useEffect(() => {
     async function authenticateUser() {
       const authSession = await authenticateUserSession();
-      if (authSession) {
+      if (authSession && authSession.email) {
         setUserSession({
           session: true,
           name: authSession.name,
           email: authSession.email,
+        });
+      } else {
+        setUserSession({
+          session: false,
+          name: "",
+          email: "",
         });
       }
     }

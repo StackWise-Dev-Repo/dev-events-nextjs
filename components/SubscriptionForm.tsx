@@ -10,22 +10,30 @@ import {
   authenticateUserSession,
   cleanUserSession,
 } from "@/lib/sesson.cookies";
+import { useUserStore } from '@/store/useUserStore';
 
 
 export default function SubscriptionForm() {
 
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const {userSession, setUserSession, isLoading, setIsLoading, clearUserSession} = useUserStore();
   const [responseMessage, setResponseMessage] = useState<{success: boolean, message: string}>({success: false, message: ""});
-  const [userSession, setUserSession] = useState<{session: boolean, name: string, email: string}>({session: false, name: "", email: ""});
-  
+
   useEffect(() => {
     async function authenticateUser() {
         const authSession = await authenticateUserSession();
-        setUserSession({
-          session: true,
-          name: authSession.name,
-          email: authSession.email,
-        });
+        if(authSession && authSession.email) {
+          setUserSession({
+            session: true,
+            name: authSession.name,
+            email: authSession.email,
+          });
+        } else {
+          setUserSession({
+            session: false,
+            name: "",
+            email: "",
+          });
+        }
     }
 
     authenticateUser();
@@ -65,13 +73,7 @@ export default function SubscriptionForm() {
   const sessionHandler = async (e: React.MouseEvent<HTMLButtonElement>) => {
     const removeUserSession: any = await cleanUserSession();
     if(removeUserSession.success) {
-        setUserSession(
-          {
-            session: false,
-            name: "",
-            email: ""
-          }
-        );
+        clearUserSession();
     }
   }
 
@@ -94,7 +96,7 @@ export default function SubscriptionForm() {
 
           <div className="relative">
             <input
-              type="text"
+              type="text"  
               name="name"
               placeholder="John Doe"
               className="input-base pr-10 text-body-large!"

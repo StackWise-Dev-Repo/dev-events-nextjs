@@ -43,6 +43,8 @@ export async function registerUser(formData: FormData) {
             email: email
         });
 
+
+
         if(!userResponse) {
             return {
                 success: false,
@@ -106,7 +108,7 @@ export async function validateCurrentUser(formData: FormData) {
     if (!userResponse) {
       return {
         success: false,
-        message: "Database internal error",
+        message: "user not found! subscribe first please.",
       };
     }
 
